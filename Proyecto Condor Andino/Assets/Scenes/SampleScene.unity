@@ -296,8 +296,8 @@ MonoBehaviour:
   armorRating: 0
   armorDurability: 0
   logDisplay: {fileID: 0}
-  defaultMaterial: {fileID: 0}
-  selectedMaterial: {fileID: 0}
+  defaultMaterial: {fileID: 2100000, guid: 35ca554cf32db934fafbc2ba6ce94674, type: 2}
+  selectedMaterial: {fileID: 2100000, guid: 770ef36deee9ea0489e93cec199f2c96, type: 2}
   selectionIndicator: {fileID: 0}
   equippedWeapons:
   - {fileID: 7789355768940899511, guid: ef3155912e9725047a1b56bb8ce63e8e, type: 3}
@@ -431,8 +431,8 @@ MonoBehaviour:
   armorRating: 0
   armorDurability: 0
   logDisplay: {fileID: 0}
-  defaultMaterial: {fileID: 0}
-  selectedMaterial: {fileID: 0}
+  defaultMaterial: {fileID: 2100000, guid: 35ca554cf32db934fafbc2ba6ce94674, type: 2}
+  selectedMaterial: {fileID: 2100000, guid: 770ef36deee9ea0489e93cec199f2c96, type: 2}
   selectionIndicator: {fileID: 0}
   equippedWeapons:
   - {fileID: 7789355768940899511, guid: ef3155912e9725047a1b56bb8ce63e8e, type: 3}
@@ -1224,8 +1224,8 @@ MonoBehaviour:
   armorRating: 0
   armorDurability: 0
   logDisplay: {fileID: 0}
-  defaultMaterial: {fileID: 0}
-  selectedMaterial: {fileID: 0}
+  defaultMaterial: {fileID: 2100000, guid: 21c49618e1348dd40b63231dcc362fd7, type: 2}
+  selectedMaterial: {fileID: 2100000, guid: 770ef36deee9ea0489e93cec199f2c96, type: 2}
   selectionIndicator: {fileID: 0}
 --- !u!136 &777036029
 CapsuleCollider:
@@ -1884,8 +1884,8 @@ MonoBehaviour:
   armorRating: 0
   armorDurability: 0
   logDisplay: {fileID: 0}
-  defaultMaterial: {fileID: 0}
-  selectedMaterial: {fileID: 0}
+  defaultMaterial: {fileID: 2100000, guid: 21c49618e1348dd40b63231dcc362fd7, type: 2}
+  selectedMaterial: {fileID: 2100000, guid: 770ef36deee9ea0489e93cec199f2c96, type: 2}
   selectionIndicator: {fileID: 0}
 --- !u!136 &1287459195
 CapsuleCollider:
@@ -2732,7 +2732,6 @@ GameObject:
   - component: {fileID: 1689045705}
   - component: {fileID: 1689045704}
   - component: {fileID: 1689045708}
-  - component: {fileID: 1689045709}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2840,18 +2839,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turnOrderText: {fileID: 437542392}
   combatLogText: {fileID: 1941059508}
---- !u!114 &1689045709
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1689045703}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02893c744f9667f41b416eae46b27c42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1718418467
 GameObject:
   m_ObjectHideFlags: 0
@@ -2892,8 +2879,8 @@ MonoBehaviour:
   armorRating: 0
   armorDurability: 0
   logDisplay: {fileID: 0}
-  defaultMaterial: {fileID: 0}
-  selectedMaterial: {fileID: 0}
+  defaultMaterial: {fileID: 2100000, guid: 21c49618e1348dd40b63231dcc362fd7, type: 2}
+  selectedMaterial: {fileID: 2100000, guid: 770ef36deee9ea0489e93cec199f2c96, type: 2}
   selectionIndicator: {fileID: 0}
 --- !u!136 &1718418469
 CapsuleCollider:
@@ -3641,6 +3628,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2064817896}
   - component: {fileID: 2064817895}
+  - component: {fileID: 2064817897}
   m_Layer: 0
   m_Name: TurnSystem
   m_TagString: Untagged
@@ -3680,6 +3668,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2064817897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2064817894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02893c744f9667f41b416eae46b27c42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2139042822
 GameObject:
   m_ObjectHideFlags: 0

@@ -25,13 +25,16 @@ public abstract class BaseWeapon : MonoBehaviour
 {
     private string weaponName;
 
+    public WeaponType weaponType;
+    public WeaponClass weaponClass;
+
     private int DEX;
     private int STR;
     private int INT;
 
-    private float damage;
+    [SerializeField] private float damage;
 
-    private bool isDoubleHanded = false;
+    [SerializeField] private bool isDoubleHanded = false;
 
 
     public void BasicAttack()

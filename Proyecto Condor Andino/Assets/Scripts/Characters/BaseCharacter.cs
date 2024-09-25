@@ -5,27 +5,26 @@ using UnityEngine;
 public class BaseCharacter : MonoBehaviour
 {
     // Propiedades básicas
-
     [SerializeField] public string cName;
     [SerializeField] private float maxHealth;
 
     private float currentHealth;
 
     [SerializeField] public int actionPoints;
-    [SerializeField] public int currentActionPoints;           
-    [SerializeField] public float speed;            
-    [SerializeField] public float armorRating;      
-    [SerializeField] public float armorDurability;  
-
-    //public List<Ability> abilitySlots;    
+    [SerializeField] public int currentActionPoints;
+    [SerializeField] public float speed;
+    [SerializeField] public float armorRating;
+    [SerializeField] public float armorDurability;
 
     public LogDisplay logDisplay;
 
     private bool isSelected = false;
-    public Material defaultMaterial;
-    public Material selectedMaterial;
+    public Material defaultMaterial;         // Material original del personaje
+    public Material selectedMaterial;        // Material de selección, que será translucido
     public GameObject selectionIndicator;
 
+    private Renderer characterRenderer;
+    
     public virtual void Start()
     {
         logDisplay = FindAnyObjectByType<LogDisplay>();
@@ -35,25 +34,30 @@ public class BaseCharacter : MonoBehaviour
         {
             selectionIndicator.SetActive(false); // Iniciar el indicador oculto
         }
-    }
 
-    void Update()
-    {
-        
+        // Asegúrate de que el material de selección esté configurado como transparente
+        if (selectedMaterial != null)
+        {
+            selectedMaterial.SetFloat("_Mode", 3); // Transparent Mode
+            Color selectedColor = selectedMaterial.color;
+            selectedColor.a = 0.5f;  // Hacerlo semi-transparente
+            selectedMaterial.color = selectedColor;
+        }
     }
 
     public void SelectCharacter()
     {
+        logDisplay.ClearCombatLog();
         isSelected = true;
 
         if (selectedMaterial != null)
         {
-            GetComponent<Renderer>().material = selectedMaterial;
+            GetComponent<Renderer>().material = selectedMaterial;  // Asigna el material de selección
         }
 
         if (selectionIndicator != null)
         {
-            selectionIndicator.SetActive(true); // Mostrar el indicador
+            selectionIndicator.SetActive(true); // Mostrar el indicador de selección
         }
 
         logDisplay.UpdateCombatLog($"{cName} ha sido seleccionado.");
@@ -65,12 +69,12 @@ public class BaseCharacter : MonoBehaviour
 
         if (defaultMaterial != null)
         {
-            GetComponent<Renderer>().material = defaultMaterial;
+            GetComponent<Renderer>().material = defaultMaterial;  // Volver al material original
         }
 
         if (selectionIndicator != null)
         {
-            selectionIndicator.SetActive(false); // Ocultar el indicador
+            selectionIndicator.SetActive(false); // Ocultar el indicador de selección
         }
     }
 
@@ -79,10 +83,10 @@ public class BaseCharacter : MonoBehaviour
         currentHealth -= amount;
         string message = $"{cName} ha recibido {amount} de daño. Salud restante: {currentHealth}";
         logDisplay.UpdateCombatLog(message);
-        
+
         if (currentHealth <= 0)
         {
-            //YES
+            // Muerte del personaje (puedes implementar esto luego)
         }
     }
 
@@ -94,20 +98,18 @@ public class BaseCharacter : MonoBehaviour
         }
     }
 
-    // Método para verificar si puede realizar acciones
     public bool CanAct()
     {
         return currentActionPoints > 0;
     }
 
-    // Método para resetear los puntos de acción al inicio del turno
     public void ResetActionPoints(int maxActionPoints)
     {
         currentActionPoints = actionPoints;
     }
 
-
-    public virtual void PerformAction(){
-        
+    public virtual void PerformAction()
+    {
+        // Implementar acciones específicas en clases derivadas
     }
 }

@@ -8,6 +8,7 @@ public enum CombatPhase
 {
     Start,
     StartTurn,
+    SelectTarget,
     EndTurn
 }
 
@@ -68,14 +69,13 @@ public class TurnSystem : MonoBehaviour
                 turnButtom.SetActive(true);
                 characterType = "Hero";
 
-                // Conversión directa de currentCharacter a BaseHero
                 BaseHero hero = currentCharacter as BaseHero;
 
                 // Actualizar la UI para el héroe actual
                 if (heroUIController != null && hero != null)
                 {
                     heroUIController.hero = hero;
-                    heroUIController.SetupButtons();  // Configura los botones según las armas equipadas
+                    heroUIController.SetupButtons();  
                 }
             }
             else if (currentCharacter is BaseEnemy)
