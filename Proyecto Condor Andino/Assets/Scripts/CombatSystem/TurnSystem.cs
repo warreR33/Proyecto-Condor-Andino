@@ -15,6 +15,8 @@ public class TurnSystem : MonoBehaviour
 {
     public CombatPhase currentPhase = CombatPhase.Start;
 
+    public HeroUIController heroUIController;
+
     public LogDisplay turnOrderUI;
     public GameObject turnButtom;
     
@@ -59,16 +61,32 @@ public class TurnSystem : MonoBehaviour
             BaseCharacter currentCharacter = sortedCharacters[currentTurnIndex];
             string characterType = "";
 
+            currentCharacter.ResetActionPoints(currentCharacter.actionPoints);
             // Detecta si el personaje es un héroe o un enemigo
             if (currentCharacter is BaseHero)
             {
                 turnButtom.SetActive(true);
                 characterType = "Hero";
+
+                // Conversión directa de currentCharacter a BaseHero
+                BaseHero hero = currentCharacter as BaseHero;
+
+                // Actualizar la UI para el héroe actual
+                if (heroUIController != null && hero != null)
+                {
+                    heroUIController.hero = hero;
+                    heroUIController.SetupButtons();  // Configura los botones según las armas equipadas
+                }
             }
             else if (currentCharacter is BaseEnemy)
             {
                 turnButtom.SetActive(false);
                 characterType = "Enemy";
+
+                if (heroUIController != null)
+                {
+                    heroUIController.ClearButtons(); // Desactivar los botones de habilidades
+                }
             }
 
             string message = $"Comienza el turno de: {currentCharacter.cName} ({characterType})";

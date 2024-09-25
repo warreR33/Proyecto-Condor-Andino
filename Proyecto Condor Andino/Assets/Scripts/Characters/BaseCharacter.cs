@@ -9,22 +9,32 @@ public class BaseCharacter : MonoBehaviour
     [SerializeField] public string cName;
     [SerializeField] private float maxHealth;
 
-    private float currentHealt;
+    private float currentHealth;
 
-    [SerializeField] private int actionPoints;       
+    [SerializeField] public int actionPoints;
+    [SerializeField] public int currentActionPoints;           
     [SerializeField] public float speed;            
     [SerializeField] public float armorRating;      
     [SerializeField] public float armorDurability;  
 
-
-    public List<BaseWeapon> weaponSlots;      
     //public List<Ability> abilitySlots;    
 
     public LogDisplay logDisplay;
 
-    void Start()
+    private bool isSelected = false;
+    public Material defaultMaterial;
+    public Material selectedMaterial;
+    public GameObject selectionIndicator;
+
+    public virtual void Start()
     {
         logDisplay = FindAnyObjectByType<LogDisplay>();
+        currentHealth = maxHealth;
+
+        if (selectionIndicator != null)
+        {
+            selectionIndicator.SetActive(false); // Iniciar el indicador oculto
+        }
     }
 
     void Update()
@@ -32,22 +42,72 @@ public class BaseCharacter : MonoBehaviour
         
     }
 
+    public void SelectCharacter()
+    {
+        isSelected = true;
+
+        if (selectedMaterial != null)
+        {
+            GetComponent<Renderer>().material = selectedMaterial;
+        }
+
+        if (selectionIndicator != null)
+        {
+            selectionIndicator.SetActive(true); // Mostrar el indicador
+        }
+
+        logDisplay.UpdateCombatLog($"{cName} ha sido seleccionado.");
+    }
+
+    public void DeselectCharacter()
+    {
+        isSelected = false;
+
+        if (defaultMaterial != null)
+        {
+            GetComponent<Renderer>().material = defaultMaterial;
+        }
+
+        if (selectionIndicator != null)
+        {
+            selectionIndicator.SetActive(false); // Ocultar el indicador
+        }
+    }
+
     public void TakeDamage(float amount)
     {
-        currentHealt -= amount;
-        string message = $"{cName} ha recibido {amount} de daño. Salud restante: {currentHealt}";
+        currentHealth -= amount;
+        string message = $"{cName} ha recibido {amount} de daño. Salud restante: {currentHealth}";
         logDisplay.UpdateCombatLog(message);
         
-        if (currentHealt <= 0)
+        if (currentHealth <= 0)
         {
             //YES
         }
     }
 
+    public void ConsumeActionPoint()
+    {
+        if (currentActionPoints > 0)
+        {
+            currentActionPoints--;
+        }
+    }
 
-    public void PerformAction(){
-        string message = $"Make noise";
-        logDisplay.UpdateCombatLog(message);
-        Debug.Log("Action");
+    // Método para verificar si puede realizar acciones
+    public bool CanAct()
+    {
+        return currentActionPoints > 0;
+    }
+
+    // Método para resetear los puntos de acción al inicio del turno
+    public void ResetActionPoints(int maxActionPoints)
+    {
+        currentActionPoints = actionPoints;
+    }
+
+
+    public virtual void PerformAction(){
+        
     }
 }

@@ -21,7 +21,7 @@ public enum WeaponClass{
     Bow,
     Crossbow,
 }
-public class BaseWeapon : MonoBehaviour
+public abstract class BaseWeapon : MonoBehaviour
 {
     private string weaponName;
 
@@ -34,12 +34,12 @@ public class BaseWeapon : MonoBehaviour
     private bool isDoubleHanded = false;
 
 
-    public void BasicAttack(BaseCharacter target)
+    public void BasicAttack()
     {
-        // Lógica para realizar el ataque básico
-        Debug.Log($"{weaponName} realiza un ataque básico e inflige {damage} de daño a {target.cName}");
-
-        // Aplica el daño al objetivo
-        target.TakeDamage(damage);
+        Debug.Log("Ataque basico");
     }
+
+    public abstract void Ability1();
+
+    public abstract void Ability2();
 }
