@@ -44,3 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba6cf1c65f7a6b24496a1c6886b2a716, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponType: 1
+  weaponClass: 0
+  damage: 10
+  isDoubleHanded: 0

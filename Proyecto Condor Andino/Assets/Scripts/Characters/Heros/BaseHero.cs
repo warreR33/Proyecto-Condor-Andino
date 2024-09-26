@@ -12,6 +12,7 @@ public class BaseHero : BaseCharacter
         heroUIController = FindObjectOfType<HeroUIController>();
     }
 
+
     public void EquipWeapon(BaseWeapon weaponPrefab, int slot)
     {
         if (slot < equippedWeapons.Length)
@@ -24,13 +25,13 @@ public class BaseHero : BaseCharacter
         }
     }
     
-    public void BasicAttack(int slot)
+        public void BasicAttack(int slot)
     {
         if (CanAct() && equippedWeapons[slot] != null)
         {
-            equippedWeapons[slot].BasicAttack();
-            ConsumeActionPoint(); // Consumir un punto de acción
-            heroUIController.UpdateButtons();
+            // Iniciar la selección de objetivo para el ataque básico
+            CharacterSelector characterSelector = FindObjectOfType<CharacterSelector>();
+            characterSelector.StartSelectingTarget(this, slot, "BasicAttack");
         }
     }
 
@@ -38,9 +39,9 @@ public class BaseHero : BaseCharacter
     {
         if (CanAct() && equippedWeapons[slot] != null)
         {
-            equippedWeapons[slot].Ability1();
-            ConsumeActionPoint();
-            heroUIController.UpdateButtons();
+            // Iniciar la selección de objetivo para la habilidad 1
+            CharacterSelector characterSelector = FindObjectOfType<CharacterSelector>();
+            characterSelector.StartSelectingTarget(this, slot, "Ability1");
         }
     }
 
@@ -48,9 +49,12 @@ public class BaseHero : BaseCharacter
     {
         if (CanAct() && equippedWeapons[slot] != null)
         {
-            equippedWeapons[slot].Ability2();
-            ConsumeActionPoint();
-            heroUIController.UpdateButtons();
+            // Iniciar la selección de objetivo para la habilidad 2
+            CharacterSelector characterSelector = FindObjectOfType<CharacterSelector>();
+            characterSelector.StartSelectingTarget(this, slot, "Ability2");
         }
     }
+
+    
+
 }

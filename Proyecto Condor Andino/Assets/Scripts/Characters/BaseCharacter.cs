@@ -1,22 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BaseCharacter : MonoBehaviour
 {
     // Propiedades básicas
     [SerializeField] public string cName;
-    [SerializeField] private float maxHealth;
+    [SerializeField] public float maxHealth;
 
-    private float currentHealth;
+    public float currentHealth;
 
     [SerializeField] public int actionPoints;
     [SerializeField] public int currentActionPoints;
     [SerializeField] public float speed;
+
+
     [SerializeField] public float armorRating;
-    [SerializeField] public float armorDurability;
+    [SerializeField] public float maxArmorDurability;
+    [SerializeField] public float currentArmorDurability;
 
     public LogDisplay logDisplay;
+
+    //TO DO cambiar los HUD a futuro
+    public Image healtUI;
+    public TextMeshProUGUI healthNumber;
+    public Image armorUI;
+    public TextMeshProUGUI armorRatingUI;
+    public TextMeshProUGUI armorDurabilityUI;
+
+
 
     private bool isSelected = false;
     public Material defaultMaterial;         // Material original del personaje
@@ -29,7 +43,11 @@ public class BaseCharacter : MonoBehaviour
     {
         logDisplay = FindAnyObjectByType<LogDisplay>();
         currentHealth = maxHealth;
+        currentArmorDurability = maxArmorDurability;
 
+        healthNumber.text = $"{currentHealth} / {maxHealth}";
+        armorDurabilityUI.text =    $"{currentArmorDurability} / {maxArmorDurability}";
+        armorRatingUI.text = $"{armorRating}";
         if (selectionIndicator != null)
         {
             selectionIndicator.SetActive(false); // Iniciar el indicador oculto
@@ -83,10 +101,29 @@ public class BaseCharacter : MonoBehaviour
         currentHealth -= amount;
         string message = $"{cName} ha recibido {amount} de daño. Salud restante: {currentHealth}";
         logDisplay.UpdateCombatLog(message);
+        healtUI.fillAmount = currentHealth / maxHealth;
+        healthNumber.text = $"{currentHealth} / {maxHealth}";
 
         if (currentHealth <= 0)
         {
-            // Muerte del personaje (puedes implementar esto luego)
+            currentHealth = 0;
+                // Muerte del personaje (puedes implementar esto luego)
+        }
+    }
+
+    public void TakeArmorDamage(float damage)
+    {
+        if (currentArmorDurability > 0)
+        {
+            currentArmorDurability -= damage;
+            string message = ($"{cName} ha recibido {damage} de daño en la armadura. Durabilidad actual: {currentArmorDurability}");
+            logDisplay.UpdateCombatLog(message);
+            armorUI.fillAmount = currentArmorDurability / maxArmorDurability;
+            armorDurabilityUI.text = $"{currentArmorDurability} / {maxArmorDurability}";
+            
+        }
+        if (currentArmorDurability <= 0){
+            currentArmorDurability = 0;
         }
     }
 
