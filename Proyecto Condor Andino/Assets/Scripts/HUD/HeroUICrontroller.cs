@@ -13,14 +13,23 @@ public class HeroUIController : MonoBehaviour
     public Button buttonAbility2_1;
     public Button buttonAbility2_2;
 
+    // Referencias para los íconos de las armas
+    public Image weaponIcon1;  // Ícono del arma en el primer slot
+    public Image weaponIcon2;  // Ícono del arma en el segundo slot
+
     public void SetupButtons()
     {
         if (hero != null)
         {
-            // Verificar si hay un arma equipada en el slot 0
+            // Configurar botones y actualizar íconos según el arma equipada en el slot 0
             if (hero.equippedWeapons[0] != null)
             {
-                // Slot 1: Configura los botones para el arma 1
+                BaseWeapon weapon1 = hero.equippedWeapons[0];
+                
+                // Asignar el ícono del arma al Image UI correspondiente
+                weaponIcon1.sprite = weapon1.weaponIcon;
+
+                // Configurar los botones para el arma 1
                 buttonBasicAttack1.onClick.RemoveAllListeners(); // Remover listeners previos
                 buttonBasicAttack1.onClick.AddListener(() => hero.BasicAttack(0));
                 buttonAbility1_1.onClick.RemoveAllListeners();
@@ -28,25 +37,28 @@ public class HeroUIController : MonoBehaviour
                 buttonAbility1_2.onClick.RemoveAllListeners();
                 buttonAbility1_2.onClick.AddListener(() => hero.UseAbility2(0));
 
-                // Activar los botones y actualizar los textos
                 buttonBasicAttack1.interactable = true;
                 buttonAbility1_1.interactable = true;
                 buttonAbility1_2.interactable = true;
-                
             }
             else
             {
-                // No hay arma en el slot 0, desactivar botones
+                // Si no hay arma en el slot 0, desactivar los botones e íconos
                 buttonBasicAttack1.interactable = false;
                 buttonAbility1_1.interactable = false;
                 buttonAbility1_2.interactable = false;
-                
+                weaponIcon1.sprite = null;  // Quitar ícono
             }
 
-            // Verificar si hay un arma equipada en el slot 1
+            // Configurar botones y actualizar íconos según el arma equipada en el slot 1
             if (hero.equippedWeapons[1] != null)
             {
-                // Slot 2: Configura los botones para el arma 2
+                BaseWeapon weapon2 = hero.equippedWeapons[1];
+                
+                // Asignar el ícono del arma al Image UI correspondiente
+                weaponIcon2.sprite = weapon2.weaponIcon;
+
+                // Configurar los botones para el arma 2
                 buttonBasicAttack2.onClick.RemoveAllListeners(); // Remover listeners previos
                 buttonBasicAttack2.onClick.AddListener(() => hero.BasicAttack(1));
                 buttonAbility2_1.onClick.RemoveAllListeners();
@@ -54,17 +66,17 @@ public class HeroUIController : MonoBehaviour
                 buttonAbility2_2.onClick.RemoveAllListeners();
                 buttonAbility2_2.onClick.AddListener(() => hero.UseAbility2(1));
 
-                // Activar los botones y actualizar los textos
                 buttonBasicAttack2.interactable = true;
                 buttonAbility2_1.interactable = true;
                 buttonAbility2_2.interactable = true;
             }
             else
             {
-                // No hay arma en el slot 1, desactivar botones
+                // Si no hay arma en el slot 1, desactivar los botones e íconos
                 buttonBasicAttack2.interactable = false;
                 buttonAbility2_1.interactable = false;
                 buttonAbility2_2.interactable = false;
+                weaponIcon2.sprite = null;  // Quitar ícono
             }
         }
     }
@@ -73,29 +85,32 @@ public class HeroUIController : MonoBehaviour
     {
         if (hero != null && hero.CanAct())
         {
-            // Si hay un arma equipada en el slot 0 y tiene puntos de acción
+            // Si el héroe puede actuar, actualizar el estado de los botones e íconos
             buttonBasicAttack1.interactable = hero.equippedWeapons[0] != null;
             buttonAbility1_1.interactable = hero.equippedWeapons[0] != null;
             buttonAbility1_2.interactable = hero.equippedWeapons[0] != null;
+            weaponIcon1.sprite = hero.equippedWeapons[0] != null ? hero.equippedWeapons[0].weaponIcon : null;
 
-            // Si hay un arma equipada en el slot 1 y tiene puntos de acción
             buttonBasicAttack2.interactable = hero.equippedWeapons[1] != null;
             buttonAbility2_1.interactable = hero.equippedWeapons[1] != null;
             buttonAbility2_2.interactable = hero.equippedWeapons[1] != null;
+            weaponIcon2.sprite = hero.equippedWeapons[1] != null ? hero.equippedWeapons[1].weaponIcon : null;
         }
         else
         {
-            // Si no tiene puntos de acción, desactivar los botones
+            // Si no puede actuar, desactivar los botones e íconos
             buttonBasicAttack1.interactable = false;
             buttonAbility1_1.interactable = false;
             buttonAbility1_2.interactable = false;
+            weaponIcon1.sprite = null;
 
             buttonBasicAttack2.interactable = false;
             buttonAbility2_1.interactable = false;
             buttonAbility2_2.interactable = false;
+            weaponIcon2.sprite = null;
         }
     }
-    
+
     public void ClearButtons()
     {
         // Desactivar o limpiar los botones cuando no es turno de un héroe
@@ -110,12 +125,11 @@ public class HeroUIController : MonoBehaviour
         buttonBasicAttack1.interactable = false;
         buttonAbility1_1.interactable = false;
         buttonAbility1_2.interactable = false;
+        weaponIcon1.sprite = null;  // Quitar ícono
 
         buttonBasicAttack2.interactable = false;
         buttonAbility2_1.interactable = false;
         buttonAbility2_2.interactable = false;
+        weaponIcon2.sprite = null;  // Quitar ícono
     }
-
-
-    
 }

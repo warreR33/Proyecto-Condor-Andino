@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 2117528141161756012}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 354.9594, y: 278.14093, z: 0}
+  m_LocalPosition: {x: 131, y: 266.70004, z: -620.83716}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -44,7 +44,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbf47ba9c959fc545909f963371b5ef2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponIcon: {fileID: 21300000, guid: 1352b291481c1df4aad3ce8c09a68ca8, type: 3}
   weaponType: 0
   weaponClass: 4
+  target: {fileID: 0}
+  DEX: 5
+  STR: 0
+  INT: 0
   damage: 5
   isDoubleHanded: 0
+  critChance: 0.1

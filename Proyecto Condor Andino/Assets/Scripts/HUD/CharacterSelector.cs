@@ -100,7 +100,7 @@ public class CharacterSelector : MonoBehaviour
 
             if (actionType == "BasicAttack")
             {
-                currentHero.equippedWeapons[activeSlot].BasicAttack();  // Ejecutamos el ataque básico
+                currentHero.equippedWeapons[activeSlot].BasicAttack(currentHero);  // Ejecutamos el ataque básico
             }
             else if (actionType == "Ability1")
             {
